@@ -1,0 +1,20 @@
+<div class="my-4">
+    <a href="/f/<%= post.forumName%>" class="text-decoration-none">~ <%= post.forumName %></a>
+
+    <div class="border rounded-3 m-2 px-3 pt-3 pb-1">
+        <div>
+            <h3><%= post.title %></h3>
+
+            <p><%= post.description %></p>
+        </div>
+
+        <hr class="my-2">
+        <div>
+            <div class="small text-end">
+                posted by <b><%= (post.creator===null?'anonymous':post.creator) %></b>
+                at <i><%= post.createdAt.toISOString() %></i>
+            </div>
+        </div>
+    </div>
+
+</div>

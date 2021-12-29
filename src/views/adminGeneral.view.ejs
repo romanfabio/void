@@ -1,0 +1,30 @@
+<h2 class="pb-2">Admin Control Panel</h2>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="/admin/general">General</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/forum">Forums</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/pex">Permissions</a>
+    </li>
+</ul>
+
+<div class="my-4">
+  <form method="post">
+    <div class="d-flex py-2 justify-content-end align-items-center">
+      <button class="btn btn-primary">Apply changes</button>
+    </div>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>">
+    <div class="row d-flex align-items-center">
+      <div class="col-3">
+        <label for="forumName" class="form-label">Board Name</label>
+      </div>
+      <div class="col-9">
+        <input type="text" class="form-control" name="forumName" id="forumName" value="<%= forumName %>">
+      </div>
+    </div>
+  </form>
+</div>

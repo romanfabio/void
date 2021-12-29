@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= _title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+
+    <% for(let i=0; i < _errors.length; i++) { %>
+    <div class="alert alert-danger fixed-bottom text-center"><%= _errors[i] %></div>
+    <% } %>
+    <% for(let i=0; i < _infos.length; i++) { %>
+    <div class="alert alert-success fixed-bottom text-center"><%= _infos[i] %></div>
+    <% } %>
+
+    <div class="container mx-auto"></div>
+    
+    <header class="container py-4 px-3"><a href="/" style="text-decoration: none; color:black">
+        <h1><%= _title %></h1>
+    </a>
+    </header>
+    <hr class="mt-0">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <%- body %>
+            </div>
+            <div class="col-lg-4">
+                <% if(!locals._user) { %>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <% if(locals._canRegister) {%>
+                        <a href="/register" class="btn btn-primary col-5">Register</a>
+                        <% } %>
+                        <a href="/login" class="btn btn-primary col-5 float-end">Login</a>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="card mb-4">
+                    <div class="card-header">Profile</div>
+                    <div class="card-body">
+                        <p><%= _user %></p>
+                        <a class="btn btn-primary col-5" href="/logout">Logout</a>
+                        <% if(locals._admin) { %>
+                            <div class="pt-2">
+                            <a class="btn btn-primary" href="/admin/general">Admin Control Panel</a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+            
+                <div class="card mb-4">
+                    <div class="card-header">Forums</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <% for(let i = 0; i < _forums.length; i++) { %>
+                                    <li><a class="text-decoration-none" href="/f/<%= _forums[i] %>"><%= _forums[i] %></a></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="card mb-4">
+                    <div class="card-header">Info</div>
+                    <div class="card-body">&copy; 2021 - void</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

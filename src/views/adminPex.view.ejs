@@ -1,0 +1,36 @@
+<h2 class="pb-2">Admin Control Panel</h2>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/general">General</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/forum">Forums</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/admin/pex">Permissions</a>
+    </li>
+</ul>
+
+<div class="my-4">
+    <form method="post">
+        <div class="d-flex py-2 justify-content-end align-items-center">
+            <button class="btn btn-primary">Apply changes</button>
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= _csrf %>">
+
+        <h5>Anonymous</h5>
+        <hr>
+        <% for(let i = 0; i < anonymousMask.length; i++) { %>
+            <input type="checkbox" class="form-check-input" name="ANO_<%= anonymousMask[i].code%>" id="ANO_<%= anonymousMask[i].code %>" <%= (anonymousMask[i].value?'checked':'')%>>
+        <label class="form-check-label" for="ANO_<%= anonymousMask[i].code %>"><%= anonymousMask[i].name %></label>
+        <% } %>
+
+        <h5 class="mt-2">User</h5>
+        <hr>
+
+        <h5 class="mt-2">Moderator</h5>
+        <hr>
+    </form>
+</div>

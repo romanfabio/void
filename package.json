@@ -1,0 +1,45 @@
+{
+  "name": "void",
+  "version": "0.0.1",
+  "description": "Privacy-Oriented Bulletin Board",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "start:dev": "ts-node src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romanfabio/void.git"
+  },
+  "author": "Fabio Roman <romanfabio@protonmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/romanfabio/void/issues"
+  },
+  "homepage": "https://github.com/romanfabio/void#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "fastify": "^3.24.0",
+    "fastify-csrf": "^3.1.0",
+    "fastify-flash": "^2.0.2",
+    "fastify-formbody": "^5.2.0",
+    "fastify-redis": "^4.3.3",
+    "fastify-secure-session": "^3.0.0",
+    "fastify-static": "^4.5.0",
+    "knex": "^0.95.14",
+    "pg": "^8.7.1",
+    "point-of-view": "^4.15.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/ejs": "^3.1.0",
+    "@types/node": "^16.11.12",
+    "@types/pg": "^8.6.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  }
+}

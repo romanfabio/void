@@ -1,0 +1,21 @@
+<h2>Register</h2>
+<form method="post" class="mb-2">
+    <input type="hidden" name="_csrf" value="<%= _csrf %>">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" name="username" id="username" >
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" id="email" >
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <div class="mb-3">
+        <label for="confirm_pwd" class="form-label">Repeat password</label>
+        <input type="password" class="form-control" id="confirm_pwd" name="confirm_pwd">
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

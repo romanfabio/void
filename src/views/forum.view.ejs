@@ -1,0 +1,37 @@
+<h2 class="pb-2"><%= forumName %></h2>
+
+<% if(locals._user) { %>
+<div class="d-flex py-2 justify-content-end align-items-center">
+    <a href="/p?f=<%= forumName %>" class="btn btn-primary">New Post</a>
+</div>
+<% } %>
+<% if(!posts.length) { %>
+    <div class="card-header text-center">
+        No Posts Yet
+    </div>
+<% } else { %>
+<% for(let i = 0; i < posts.length; i++) { %>
+    <a href="/p/<%= posts[i].id %>" style="text-decoration: none; color: black">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h4 class="card-title"><%= posts[i].title %></h4>
+                <div class="small text-muted">Posted by <b><%= (posts[i].creator===null?'anonymous':posts[i].creator) %></b> at <%= posts[i].createdAt.toISOString() %></div>
+            </div>
+        </div>
+    </a>
+<% } } %>
+    
+<nav aria-label="Pagination">
+    <hr class="my-0">
+    <ul class="pagination justify-content-center my-4">
+        <li class="page-item <%= (firstPage?'disabled':'') %>">
+            <a class="page-link" href="<%= (firstPage?'#':'/f/' +  forumName + '?p=' + (page-1)) %>">&lt;</a>
+        </li>
+        <li class="page-item active">
+            <a class="page-link" href="/f/<%= forumName %>?p=<%= page %>"><%= (page+1) %></a>
+        </li>
+        <li class="page-item <%= (lastPage?'disabled':'') %>">
+            <a class="page-link" href="<%= (lastPage?'#':'/f/' +  forumName + '?p=' + (page+1)) %>">&gt;</a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,32 @@
+<h2 class="pb-2">Admin Control Panel</h2>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/general">General</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/admin/forum">Forums</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/pex">Permissions</a>
+    </li>
+</ul>
+
+<div class="my-4">
+    <div class="d-flex py-2 justify-content-end align-items-center">
+        <a class="btn btn-primary" href="/admin/newforum">New forum</a>
+    </div>
+
+    <% for(let i = 0; i < forums.length; i++) { %>
+        <div class="card mb-2">
+            <div class="d-flex card-body justify-content-between">
+                <h4><a class="text-decoration-none" href="/admin/forum/<%= forums[i].name %>"><%= forums[i].name %></a></h4>
+                <form method="post">
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>">
+                    <input type="hidden" name="forumName" value="<%= forums[i].name %>">
+                    <button class="btn">&#973<%= (forums[i].starred?'3':'4') %>;</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+</div>

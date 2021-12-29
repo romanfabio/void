@@ -4,33 +4,34 @@ import { IUserCache } from "../cache/Icache";
 
 export default class UserRepository {
 
-    private readonly db : Knex;
-    private readonly cache : IUserCache;
+    private readonly _db : Knex;
+    private readonly _cache : IUserCache;
 
     constructor(cache: IUserCache, database: Knex) {
-        this.cache = cache;
-        this.db = database;
+        this._cache = cache;
+        this._db = database;
     }
 
     public async findByUsername(username: string) : Promise<User | null> {
-        
-        let user = await this.cache.findByUsername(username);
 
-        if(!user) {
-            const rows = await this.db.select(['username','password','email','group']).from('users').where('username', username);
+        let user = await this._cache.findByUsername(username);
 
-            if(!rows.length)
-                return null;
+        if(user === undefined) {
+            const rows = await this._db.select(['username','password','email','group']).from('users').where('username', username);
 
-            user = rows[0] as User;
-            await this.cache.cache(user);
+            user = null;
+            if(rows.length) {
+                user = rows[0] as User;
+            }
+
+            await this._cache.set(username, user);
         }
 
         return user;
     }
 
     public async insert(user: User) : Promise<void> {
-        await this.db('users').insert(user);
-        await this.cache.cache(user);
+        await this._db('users').insert(user);
+        await this._cache.set(user.username, user);
     }
 }

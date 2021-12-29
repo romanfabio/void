@@ -3,31 +3,31 @@ import { Knex } from "knex";
 
 export default class GroupRepository {
 
-    private readonly db : Knex;
-    private readonly groups : Group[];
+    private readonly _db : Knex;
+    private readonly _groups : Group[];
 
     constructor(database: Knex) {
-        this.db = database;
-        this.groups = [];
+        this._db = database;
+        this._groups = [];
     }
 
     async load() : Promise<void> {
-        const rows = await this.db.select('id','name','mask').from('groups').orderBy('id','asc');
+        const rows = await this._db.select('id','name','mask').from('groups').orderBy('id','asc');
 
         if(rows.length !== 4) {
             console.log('missing required groups');
         }
 
-        rows.forEach(r => this.groups.push(r));
+        rows.forEach(r => this._groups.push(r));
     }
 
     findById(id: number) : Group {
-        return this.groups[id];
+        return this._groups[id];
     }
 
     async updateMaskById(id: number, mask: Uint8Array) : Promise<void> {
-        await this.db('groups').update({mask}).where('id', id);
-        this.groups[id].mask = mask;
+        await this._db('groups').update({mask}).where('id', id);
+        this._groups[id].mask = mask;
     }
 
 }

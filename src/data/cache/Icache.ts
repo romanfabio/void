@@ -6,36 +6,30 @@ import User from "../models/user.model";
 import SimpleUserCache from './simple/user.cache';
 import SimpleForumCache from './simple/forum.cache';
 
-export type CacheType = {
+export type CacheManager = {
     forum: IForumCache;
     user: IUserCache;
 }
 
 export interface IForumCache {
 
-    names(): Promise<string[] | null>;
+    set(name: string, forum: Forum | null): Promise<void>;
 
-    cacheNames(names: string[]): Promise<void>;
-
-    cache(forum: Forum): Promise<void>;
-
-    findByName(name: string): Promise<Forum | null>;
+    findByName(name: string): Promise<Forum | null | undefined>;
 }
 
 export interface IUserCache {
 
-    findByUsername(username: string): Promise<User | null>;
+    findByUsername(username: string): Promise<User | null | undefined>;
 
-    cache(user: User): Promise<void>;
+    set(username: string, user: User | null): Promise<void>;
 }
 
-export async function configureCaches(app: FastifyInstance, ctx: Context): Promise<CacheType> {
-
+export async function configureCaches(app: FastifyInstance, ctx: Context): Promise<CacheManager> {
 
     return {
         forum: new SimpleForumCache(),
         user: new SimpleUserCache()
     }
-
 
 }

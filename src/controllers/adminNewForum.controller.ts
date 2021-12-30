@@ -9,7 +9,6 @@ import Context from "../utils/context";
 type PostBody = {
     name: string;
     description: string;
-    starred: string | undefined;
 }
 
 export class AdminNewForumController implements Controller {
@@ -39,7 +38,6 @@ export class AdminNewForumController implements Controller {
                     properties: {
                         name: {type: 'string', nullable: false},
                         description: {type: 'string', nullable: false},
-                        starred: {type: 'string', nullable: false},
                         _csrf: {type: 'string', nullable: false}
                     }
                 }
@@ -68,8 +66,6 @@ export class AdminNewForumController implements Controller {
         name = name.trim();
         description = description.trim();
 
-        const starred = (request.body as PostBody).starred !== undefined;
-
         if(! isForumName(name)) {
             request.flash('err', 'invalid name');
             return reply.redirect('/admin/newforum');
@@ -89,7 +85,7 @@ export class AdminNewForumController implements Controller {
                 creator: request.user.username as string,
                 userMask: '',
                 moderatorMask: '',
-                starred
+                orderId: (await this.forumRepo.names()).length
             });
 
             request.flash('info', 'forum created');

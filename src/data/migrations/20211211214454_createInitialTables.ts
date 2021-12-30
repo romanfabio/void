@@ -33,7 +33,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('creator', 32);
         table.string('userMask', 255).notNullable();
         table.string('moderatorMask', 255).notNullable();
-        table.boolean('starred').notNullable().defaultTo(false);
+        table.integer('orderId').notNullable();
 
         table.primary(['name']);
         table.foreign('creator').references('users.username');

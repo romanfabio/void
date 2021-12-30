@@ -4,7 +4,7 @@ type Forum = {
     creator: string | null;
     userMask: string;
     moderatorMask: string;
-    starred: boolean;
+    orderId: number;
 };
 
 export default Forum;

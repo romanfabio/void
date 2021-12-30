@@ -13,18 +13,19 @@
 </ul>
 
 <div class="my-4">
-    <div class="d-flex py-2 justify-content-end align-items-center">
+    <div class="d-flex py-2 justify-content-end">
         <a class="btn btn-primary" href="/admin/newforum">New forum</a>
     </div>
 
     <% for(let i = 0; i < forums.length; i++) { %>
         <div class="card mb-2">
-            <div class="d-flex card-body justify-content-between">
-                <h4><a class="text-decoration-none" href="/admin/forum/<%= forums[i].name %>"><%= forums[i].name %></a></h4>
+            <div class="d-flex card-body justify-content-between align-items-center">
+                <h4><a class="text-decoration-none" href="/admin/forum/<%= forums[i] %>"><%= forums[i] %></a></h4>
                 <form method="post">
                     <input type="hidden" name="_csrf" value="<%= _csrf %>">
-                    <input type="hidden" name="forumName" value="<%= forums[i].name %>">
-                    <button class="btn">&#973<%= (forums[i].starred?'3':'4') %>;</button>
+                    <input type="hidden" name="forumName" value="<%= forums[i] %>">
+                    <button class="btn" name="action" value="up">&#9650;</button>
+                    <button class="btn" name="action" value="down">&#9660;</button>
                 </form>
             </div>
         </div>

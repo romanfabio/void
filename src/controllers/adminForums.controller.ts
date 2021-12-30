@@ -7,6 +7,7 @@ import Context from "../utils/context";
 
 type PostBody = {
     forumName: string;
+    action: string;
 }
 
 export class AdminForumsController implements Controller {
@@ -35,6 +36,7 @@ export class AdminForumsController implements Controller {
                     required: ['forumName', '_csrf'],
                     properties: {
                         forumName: {type: 'string', nullable: false},
+                        action: {type: 'string', nullable: false},
                         _csrf: {type: 'string', nullable: false}
                     }
                 }
@@ -49,7 +51,7 @@ export class AdminForumsController implements Controller {
         }
 
         reply.viewArgs._csrf = await reply.generateCsrf();
-        reply.viewArgs.forums = await this.forumRepo.summaries();
+        reply.viewArgs.forums = await this.forumRepo.names();
         return reply.view('adminForums.view.ejs', reply.viewArgs);
     }
 
@@ -60,9 +62,23 @@ export class AdminForumsController implements Controller {
             return reply.redirect('/');
         }
 
-        const {forumName} = request.body as PostBody;
+        const {forumName, action} = request.body as PostBody;
 
-        await this.forumRepo.invertStarred(forumName);
+        if(action !== 'up' && action !== 'down'){
+            return reply.redirect('/admin/forum');
+        }
+
+        const forums = (await this.forumRepo.names());
+        const index = forums.indexOf(forumName);
+        if(index < 0 || (action === 'up' && index == 0) || (action === 'down' && index == forums.length-1)) {
+            return reply.redirect('/admin/forum');
+        }
+
+        if(action === 'up'){
+            await this.forumRepo.moveUp(forumName, index);
+        } else {
+            await this.forumRepo.moveDown(forumName, index);
+        }
 
         return reply.redirect('/admin/forum');
     }
